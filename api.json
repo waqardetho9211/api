@@ -1,0 +1,106 @@
+{
+  swagger: "2.0",
+  info: {
+    description: ""LÖB Schnittstelle Versand Löschbefehle."",
+    version: "1.0.0",
+    title: "ZLO Löschbefehle Web REST API "
+  },
+  host: "kfw-f-zloservice-le01.kfw.kfwgruppe.net:10443",
+  basePath: "/ZLO_Loeschbefehle_Versenden_Web",
+  tags: [
+    {
+      name: "zlo-loeschbefehlel-controller",
+      description: "ZLO Loeschbefehlel Controller"
+    }
+  ],
+  paths: {
+    /loeschbefehle: {
+      get: {
+        tags: [
+          "zlo-loeschbefehlel-controller"
+        ],
+        summary: "getZLOObject",
+        operationId: "getZLOObjectUsingGET",
+        produces: [
+          "application/json"
+        ],
+        parameters: [
+          {
+            name: "mandant",
+            in: "query",
+            description: "mandant",
+            required: true,
+            type: "integer",
+            format: "int32"
+          },
+          {
+            name: "maxAnzahlLoeschbefehle",
+            in: "query",
+            description: "maxAnzahlLoeschbefehle",
+            required: false,
+            type: "integer",
+            default: 1000,
+            format: "int32"
+          },
+          {
+            name: "umsystem",
+            in: "query",
+            description: "umsystem",
+            required: true,
+            type: "integer",
+            format: "int32"
+          },
+          {
+            name: "von",
+            in: "query",
+            description: "von",
+            required: false,
+            type: "integer",
+            default: 1,
+            format: "int32"
+          }
+        ],
+        responses: {
+          200: {
+            description: "OK",
+            schema: {
+              type: "array",
+              items: {
+                $ref: "#/definitions/ZloEvidenzDto"
+              }
+            }
+          },
+          401: {
+            description: "Unauthorized"
+          },
+          403: {
+            description: "Forbidden"
+          },
+          404: {
+            description: "Not Found"
+          }
+        },
+        deprecated: false
+      }
+    }
+  },
+  definitions: {
+    ZloEvidenzDto: {
+      type: "object",
+      properties: {
+        mandant: {
+          type: "integer",
+          format: "int32"
+        },
+        objekTtyp: {
+          type: "integer",
+          format: "int32"
+        },
+        objektId: {
+          type: "string"
+        }
+      },
+      title: "ZloEvidenzDto"
+    }
+  }
+}
